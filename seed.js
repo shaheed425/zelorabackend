@@ -7,7 +7,7 @@ async function seed() {
   await connectDB();
 
   try {
-    await runMigrationTask(true);
+    await runMigrationTask(false);
     console.log('\n🎉 Seed completed successfully!');
     process.exit(0);
   } catch (err) {
