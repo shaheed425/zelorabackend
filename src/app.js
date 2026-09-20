@@ -36,9 +36,9 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Body Parsers
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Body Parsers (Increased to 50mb for handling multiple image uploads)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Serve Public Static Assets
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
