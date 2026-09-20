@@ -15,6 +15,8 @@ async function getProducts(query = {}) {
       { description: searchRegex },
       { tags: searchRegex },
       { materials: searchRegex },
+      { sku: searchRegex },
+      { subcategory: searchRegex },
     ];
   }
 
@@ -66,10 +68,10 @@ async function getProducts(query = {}) {
 }
 
 async function getProductBySlug(slug) {
-  const product = await Product.findOne({ slug }).populate('category', 'name slug description');
+  const product = await Product.findOne({ slug }).populate('category', 'name slug description').lean();
   if (product) {
-    product.views += 1;
-    await product.save();
+    // Non-blocking async view increment in background
+    Product.updateOne({ _id: product._id }, { $inc: { views: 1 } }).catch(() => {});
   }
   return product;
 }

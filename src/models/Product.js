@@ -7,6 +7,12 @@ const imageSchema = new mongoose.Schema({
   order: { type: Number, default: 0 }
 }, { _id: true });
 
+const colorVariantSchema = new mongoose.Schema({
+  color: { type: String, required: true },
+  image: { type: String, default: '' },
+  hex: { type: String, default: '' },
+}, { _id: false });
+
 const specSchema = new mongoose.Schema({
   name: { type: String, required: true },
   value: { type: String, required: true }
@@ -89,6 +95,7 @@ const productSchema = new mongoose.Schema(
       default: '',
     },
     colors: [{ type: String }],
+    colorVariants: [colorVariantSchema],
     tags: [{ type: String }],
     badges: [{ type: String }],
     isFeatured: {

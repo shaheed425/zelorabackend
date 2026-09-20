@@ -43,12 +43,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Serve Public Static Assets
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
-// Health check endpoint
+// Health check endpoint (Keep-Alive Anti-Sleep Ping Target)
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'ZELORA Luxury Furniture API is running smoothly',
-    timestamp: new Date(),
+    status: 'ACTIVE_NO_SLEEP',
+    uptime: `${Math.floor(process.uptime())}s`,
+    timestamp: new Date().toISOString(),
   });
 });
 
